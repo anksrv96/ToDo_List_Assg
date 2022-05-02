@@ -15,3 +15,12 @@ class TaskPage:
                                  headers=header)
         print(response.content)
         return response
+
+    def get_task_by_pagination(self, limit, skip):
+        bearer_token = 'Bearer ' + TestData.BEARER_TOKEN
+        header = {'Authorization': bearer_token, 'content-type': 'application/json'}
+        params = {'limit': limit, 'skip': skip}
+        url = "https://api-nodejs-todolist.herokuapp.com/task"
+        response = requests.get(url=url, params=params, headers=header)
+        print(response.content)
+        return response

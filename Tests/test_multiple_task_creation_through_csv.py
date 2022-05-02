@@ -23,3 +23,11 @@ class TestMultipleTaskCreation:
                 tc_response = self.task_page.add_task(task[0])
                 assert tc_response.status_code == 201, "TASK NOT CREATED"
 
+    def test_pagination(self):
+        self.task_page = TaskPage()
+        tp_response = self.task_page.get_task_by_pagination(TestData.PAGINATION_LIMIT, TestData.PAGINATION_SKIP)
+        assert tp_response.status_code == 200, "STATUS CODE MISMATCH"
+        response_dict = json.loads(tp_response.text)
+        assert response_dict['count'] == TestData.PAGINATION_LIMIT, "ERROR IN PAGINATION "
+
+

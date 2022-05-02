@@ -4,5 +4,7 @@ class TestData:
     PASSWORD = "12345678"
     AGE = 25
     DEFAULT_TASK = "INITIAL TASK"
+    PAGINATION_LIMIT = 5
+    PAGINATION_SKIP = 0
     BEARER_TOKEN = None
 
