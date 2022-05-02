@@ -1,3 +1,5 @@
+import ast
+import json
 import requests
 
 from Conifg.config import TestData
@@ -5,7 +7,7 @@ from Conifg.config import TestData
 
 class UserPage:
     def create_user(self, name, email, password, age):
-        header = {'content-type': 'application/json'}
+        header = {'Content-Type': 'application/json'}
         payload = {
             "name": name,
             "email": email,
@@ -13,9 +15,11 @@ class UserPage:
             "age": age
         }
 
-        response = requests.get(url='https://api-nodejs-todolist.herokuapp.com/user/register', json=payload,
-                                headers=header)
-        TestData.set_bearer_token(response["token"])
+        response = requests.post(url='https://api-nodejs-todolist.herokuapp.com/user/register', json=payload,
+                                 headers=header)
+        resp_content = json.loads(response.text)
+        TestData.BEARER_TOKEN = resp_content['token']
+        print(response.status_code)
         return response
 
     def login_user(self, email, password):
@@ -25,7 +29,7 @@ class UserPage:
             "password": password
         }
 
-        response = requests.get(url='https://api-nodejs-todolist.herokuapp.com/user/register', json=payload,
-                                headers=header)
+        response = requests.post(url='https://api-nodejs-todolist.herokuapp.com/user/login', json=payload,
+                                 headers=header)
+        print(response.content)
         return response
-
