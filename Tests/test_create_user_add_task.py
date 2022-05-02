@@ -23,6 +23,7 @@ class TestCreateUserAddTask:
 
     def test_task_creation(self):
         self.task_page = TaskPage()
-        tc_response = self.task_page.add_task()
-        assert tc_response.status_code == 201
+        tc_response = self.task_page.add_task(TestData.DEFAULT_TASK)
+        assert tc_response.status_code == 201, "CREATE TASK STATUS CODE DO NOT MATCH"
+
 
