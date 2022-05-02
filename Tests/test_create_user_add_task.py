@@ -2,14 +2,23 @@ from Conifg.config import TestData
 from Pages.task_page import TaskPage
 from Pages.user_page import UserPage
 import json
+import logging
 
 
 class TestCreateUserAddTask:
+    logging.basicConfig(filename='logs/app.log', level=logging.INFO, format='%(name)s - %(levelname)s - %(message)s')
+
     def test_create_user(self):
         self.create_user = UserPage()
+        logging.info("Creating User")
         cu_response = self.create_user.create_user(TestData.USERNAME, TestData.EMAIL,
                                                    TestData.PASSWORD, TestData.AGE)
+        if cu_response.status_code == 201:
+            logging.info("USER created")
+        else:
+            logging.info("Error in creating user")
         assert cu_response.status_code == 201, "STATUS CODE DO NOT MATCH DURING USER CREATION"
+
 
     def test_login(self):
         self.user_page = UserPage()

@@ -1,9 +1,11 @@
 import requests
 
 from Conifg.config import TestData
+import logging
 
 
 class TaskPage:
+
     def add_task(self, task):
         bearer_token = 'Bearer '+TestData.BEARER_TOKEN
         header = {'Authorization': bearer_token, 'content-type': 'application/json'}
@@ -22,5 +24,13 @@ class TaskPage:
         params = {'limit': limit, 'skip': skip}
         url = "https://api-nodejs-todolist.herokuapp.com/task"
         response = requests.get(url=url, params=params, headers=header)
+        print(response.content)
+        return response
+
+    def get_all_task(self):
+        bearer_token = 'Bearer ' + TestData.BEARER_TOKEN
+        header = {'Authorization': bearer_token, 'content-type': 'application/json'}
+        url = "https://api-nodejs-todolist.herokuapp.com/task"
+        response = requests.get(url=url, headers=header)
         print(response.content)
         return response
